@@ -3,9 +3,25 @@ import { Text, StyleSheet } from "react-native";
 import { Card, Paragraph } from "react-native-paper";
 import styled from "styled-components/native";
 
+const Info = styled.View`
+  padding: ${(props) => props.theme.space[3]};
+`;
 const Title = styled.Text`
-  padding: 16px;
-  color: red;
+  color: ${(props) => props.theme.colors.ui.primary};
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+`;
+const Address = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
+`;
+const RestaurantCard = styled(Card)`
+  background-color: ${(props) => props.theme.colors.bg.primary}
+  margin-top: ${(props) => props.theme.space[2]};
+`;
+const RestaurantCardCover = styled(Card.Cover)`
+  padding: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -22,19 +38,12 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily,
   } = restaurant;
   return (
-    <Card elevation={5} style={styles.card}>
-      <Card.Cover key={name} style={styles.cover} source={{ uri: photos[0] }} />
-      <Title>{name}</Title>
-    </Card>
+    <RestaurantCard elevation={5}>
+      <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
+      <Info>
+        <Title>{name}</Title>
+        <Address>{address}</Address>
+      </Info>
+    </RestaurantCard>
   );
 };
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "white",
-    marginTop: 10,
-  },
-  cover: {
-    padding: 20,
-    backgroundColor: "white",
-  },
-});

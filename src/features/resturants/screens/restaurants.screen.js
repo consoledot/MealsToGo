@@ -8,17 +8,28 @@ import {
   ScrollView,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
-
+import styled from "styled-components/native";
 import { RestaurantInfoCard } from "../components/restauratnt-info-card.component";
 
+const SafeArea = styled.SafeAreaView`
+  flex: 1;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+`;
+const SearchContainer = styled.View`
+  padding: ${(props) => props.theme.space[2]};
+`;
+const RestaurantListContainer = styled.View`
+  flex: 1;
+  padding: ${(props) => props.theme.space[3]};
+`;
 export const RestaurantsScreen = () => {
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.search}>
+      <SafeArea>
+        <SearchContainer>
           <Searchbar placeholder="Search" />
-        </View>
-        <View style={styles.lists}>
+        </SearchContainer>
+        <RestaurantListContainer>
           <ScrollView>
             <RestaurantInfoCard />
             <RestaurantInfoCard />
@@ -33,21 +44,8 @@ export const RestaurantsScreen = () => {
             <RestaurantInfoCard />
             <RestaurantInfoCard />
           </ScrollView>
-        </View>
-      </SafeAreaView>
+        </RestaurantListContainer>
+      </SafeArea>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, marginTop: StatusBar.currentHeight },
-  search: {
-    padding: 10,
-  },
-  lists: {
-    flex: 1,
-    backgroundColor: "green",
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-});
